@@ -2,10 +2,10 @@
   <rect width="64" height="64" fill="#000"/>
   <text
     x="32"
-    y="46"
+    y="54"
     fill="#fff"
     font-family="SF Pro, Arial, sans-serif"
-    font-size="44"
+    font-size="58"
     font-weight="300"
     text-anchor="middle"
   >O</text>
