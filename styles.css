@@ -51,6 +51,10 @@ main {
     text-decoration: none;
 }
 
+.footer-link {
+    color: inherit;
+}
+
 .get-started {
     text-decoration: underline;
 }
