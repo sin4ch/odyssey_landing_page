@@ -1,42 +1,47 @@
-* { box-sizing: border-box; }
+* {
+    box-sizing: border-box;
+}
 
 html,
+body {
+    height: 100%;
+}
+
 body {
     font-family: "SF Pro Rounded";
     font-weight: 400;
     margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
     background-color: black;
     color: white;
 }
 
 p {
     margin: 0;
-    padding: 0;
-}
-
-.hero-image {
-  position: absolute;
-  inset: 0 0 0 50%;
-  width: 50%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
 }
 
 main {
+    --page-gutter: 2.5vw;
+
     position: relative;
+    isolation: isolate;
     overflow: hidden;
-    z-index: 1;
-    padding: 4vh 2.5vw;
+    padding: 4vh var(--page-gutter);
     min-height: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
-.top {
+.hero-image {
+    position: absolute;
+    inset: 0 0 0 50%;
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.top,
+.bottom {
     display: flex;
     justify-content: space-between;
 }
@@ -46,7 +51,9 @@ main {
     text-decoration: none;
 }
 
-.get-started { text-decoration: underline; }
+.get-started {
+    text-decoration: underline;
+}
 
 .trademark {
     vertical-align: super;
@@ -54,7 +61,6 @@ main {
 }
 
 .middle {
-    flex: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
@@ -66,17 +72,14 @@ main {
     font-size: 2.2rem;
 }
 
-.grey-text { color: rgb(255 255 255 / 50%); }
-
-.middle-coordinates {
-    font-family: "GeistMono Nerd Font Mono";
-    justify-self: center;
-    transform: translateX(1.25vw);
+.grey-text {
+    color: rgb(255 255 255 / 50%);
 }
 
-.bottom {
-    display: flex;
-    justify-content: space-between;
+.middle-coordinates {
+    font-family: "GeistMono Nerd Font Mono", monospace;
+    justify-self: center;
+    transform: translateX(calc(var(--page-gutter) * 0.5));
 }
 
 .bottom-left {
