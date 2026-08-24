@@ -8,11 +8,11 @@ body {
 }
 
 body {
+    margin: 0;
+    background: black;
+    color: white;
     font-family: "SF Pro";
     font-weight: 400;
-    margin: 0;
-    background-color: black;
-    color: white;
 }
 
 p {
@@ -20,43 +20,59 @@ p {
 }
 
 main {
-    --page-gutter: 2.5vw;
+    --page-gutter: max(1rem, env(safe-area-inset-left));
 
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    padding: 4vh var(--page-gutter);
-    min-height: 100%;
+    min-height: 100dvh;
+    padding-block: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-bottom));
+    padding-inline: var(--page-gutter) max(1rem, env(safe-area-inset-right));
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto minmax(0, 1fr) auto;
 }
 
 .hero-image {
     position: absolute;
-    inset: 0 0 0 50%;
-    width: 50%;
-    height: 100%;
-    object-fit: cover;
+    inset: 0 0 auto;
     z-index: -1;
+    width: 100%;
+    height: 52%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.top,
+.bottom,
+.bottom-left {
+    display: flex;
+    align-items: center;
 }
 
 .top,
 .bottom {
-    display: flex;
     justify-content: space-between;
 }
 
-.wordmark {
-    color: inherit;
-    text-decoration: none;
-}
-
+.wordmark,
 .footer-link {
     color: inherit;
 }
 
+.wordmark {
+    text-decoration: none;
+}
+
 .get-started {
     text-decoration: underline;
+}
+
+.wordmark,
+.get-started,
+.footer-link {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
 }
 
 .trademark {
@@ -65,15 +81,22 @@ main {
 }
 
 .middle {
+    min-height: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template:
+        "coordinates" 52%
+        "copy" 48%
+        / 1fr;
     align-items: center;
 }
 
 .middle-text {
+    grid-area: copy;
+    align-self: center;
+    max-width: none;
+    font-size: clamp(1.35rem, 6vw, 1.65rem);
     font-weight: 300;
-    max-width: 40vw;
-    font-size: 2.2rem;
+    line-height: 1.18;
 }
 
 .grey-text {
@@ -81,13 +104,108 @@ main {
 }
 
 .middle-coordinates {
-    font-family: "GeistMono Nerd Font Mono", monospace;
+    grid-area: coordinates;
+    align-self: end;
     justify-self: center;
-    transform: translateX(calc(var(--page-gutter) * 0.5));
+    margin-bottom: 1.25rem;
+    font-family: "GeistMono Nerd Font Mono", monospace;
+    font-size: clamp(0.6rem, 2.8vw, 0.75rem);
+    white-space: nowrap;
+}
+
+.bottom {
+    gap: 1rem;
+    font-size: 0.7rem;
 }
 
 .bottom-left {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
+    gap: clamp(0.65rem, 3vw, 1rem);
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+    main {
+        --page-gutter: 2rem;
+    }
+
+    .hero-image {
+        inset: 0 0 0 50%;
+        width: 50%;
+        height: 100%;
+        object-position: center;
+    }
+
+    .middle {
+        grid-template: "copy coordinates" 1fr / 1fr 1fr;
+    }
+
+    .middle-text {
+        max-width: 42vw;
+        font-size: clamp(1rem, 3.25vw, 1.55rem);
+    }
+
+    .middle-coordinates {
+        align-self: center;
+        margin-bottom: 0;
+        font-size: 0.6rem;
+        transform: translateX(calc(var(--page-gutter) * 0.5));
+    }
+}
+
+@media (min-width: 901px) {
+    main {
+        --page-gutter: 2.5vw;
+
+        min-height: 100%;
+        padding: 4vh var(--page-gutter);
+    }
+
+    .hero-image {
+        inset: 0 0 0 50%;
+        width: 50%;
+        height: 100%;
+        object-position: center;
+    }
+
+    .top,
+    .bottom {
+        align-items: stretch;
+    }
+
+    .wordmark,
+    .footer-link {
+        display: inline;
+        min-height: 0;
+    }
+
+    .get-started {
+        display: block;
+        min-height: 0;
+    }
+
+    .middle {
+        grid-template: "copy coordinates" 1fr / 1fr 1fr;
+    }
+
+    .middle-text {
+        max-width: 40vw;
+        font-size: 2.2rem;
+        line-height: normal;
+    }
+
+    .middle-coordinates {
+        align-self: center;
+        margin-bottom: 0;
+        font-size: 1rem;
+        white-space: normal;
+        transform: translateX(calc(var(--page-gutter) * 0.5));
+    }
+
+    .bottom {
+        gap: normal;
+        font-size: 1rem;
+    }
+
+    .bottom-left {
+        gap: 2rem;
+    }
 }
